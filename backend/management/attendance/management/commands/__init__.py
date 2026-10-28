@@ -1,0 +1,1 @@
+# Attendance commands package

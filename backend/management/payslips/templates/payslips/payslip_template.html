@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Payslip</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .header-table {
+            width: 100%;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 15px;
+        }
+        .company-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .payslip-title {
+            font-size: 24px;
+            color: #7f8c8d;
+            text-align: right;
+            font-weight: 300;
+        }
+        .month-text {
+            font-size: 14px;
+            color: #34495e;
+            font-weight: normal;
+        }
+        .section-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #2c3e50;
+            padding: 6px 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-table {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        .info-table td {
+            padding: 6px 0;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #555555;
+            width: 40%;
+        }
+        .info-value {
+            width: 60%;
+            color: #2c3e50;
+        }
+        .salary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .salary-table th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #bdc3c7;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .salary-table td {
+            padding: 12px;
+            border: 1px solid #bdc3c7;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .totals-row td {
+            background-color: #ecf0f1;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        .net-pay-box {
+            width: 45%;
+            float: right;
+            border: 2px solid #2c3e50;
+            background-color: #f8f9fa;
+            margin-top: 15px;
+            border-radius: 4px;
+        }
+        .net-pay-table {
+            width: 100%;
+        }
+        .net-pay-table td {
+            padding: 15px;
+            text-align: center;
+        }
+        .net-pay-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #34495e;
+            border-bottom: 1px solid #dee2e6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .net-pay-amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: #27ae60;
+            padding-top: 15px;
+        }
+        .footer {
+            margin-top: 100px;
+            text-align: center;
+            font-size: 11px;
+            color: #95a5a6;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <table class="header-table">
+        <tr>
+            <td class="company-name">Your Company</td>
+            <td class="payslip-title">
+                PAYSLIP<br>
+                <span class="month-text">For the month of {{ month }} {{ payslip.year }}</span>
+            </td>
+        </tr>
+    </table>
+
+    <div class="section-title">Employee Details</div>
+    
+    <div style="width: 48%; float: left;">
+        <table class="info-table">
+            <tr>
+                <td class="info-label">Employee Name:</td>
+                <td class="info-value">{{ payslip.employee.user.first_name }} {{ payslip.employee.user.last_name }}</td>
+            </tr>
+            <tr>
+                <td class="info-label">Designation:</td>
+                <td class="info-value">{{ payslip.employee.designation }}</td>
+            </tr>
+            <tr>
+                <td class="info-label">Date of Joining:</td>
+                <td class="info-value">{{ payslip.employee.joining_date|date:"M d, Y" }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="width: 48%; float: right;">
+        <table class="info-table">
+            <tr>
+                <td class="info-label">Employee ID:</td>
+                <td class="info-value">#{{ payslip.employee.employee_id }}</td>
+            </tr>
+            <tr>
+                <td class="info-label">Department:</td>
+                <td class="info-value">{% if payslip.employee.department %}{{ payslip.employee.department.name }}{% else %}N/A{% endif %}</td>
+            </tr>
+            <tr>
+                <td class="info-label">Payslip Generated:</td>
+                <td class="info-value">{{ payslip.created_at|date:"M d, Y" }}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div style="clear: both; margin-bottom: 20px;"></div>
+
+    <div class="section-title">Salary Details</div>
+    
+    <div style="width: 48%; float: left;">
+        <table class="salary-table">
+            <tr>
+                <th>Earnings</th>
+                <th class="text-right" style="width: 90px;">Amount (Rs.)</th>
+            </tr>
+            <tr>
+                <td>Basic Salary</td>
+                <td class="text-right">{{ payslip.basic_salary }}</td>
+            </tr>
+            <tr>
+                <td>Allowances</td>
+                <td class="text-right">{{ payslip.allowances }}</td>
+            </tr>
+            <tr class="totals-row">
+                <td>Total Earnings</td>
+                <td class="text-right">{{ total_earnings }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="width: 48%; float: right;">
+        <table class="salary-table">
+            <tr>
+                <th>Deductions</th>
+                <th class="text-right" style="width: 90px;">Amount (Rs.)</th>
+            </tr>
+            <tr>
+                <td>Leaves / Absences</td>
+                <td class="text-right">{{ payslip.deductions }}</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="text-right">&nbsp;</td>
+            </tr>
+            <tr class="totals-row">
+                <td>Total Deductions</td>
+                <td class="text-right">{{ payslip.deductions }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="clear: both;"></div>
+
+    <div class="net-pay-box">
+        <table class="net-pay-table">
+            <tr>
+                <td class="net-pay-label">Net Salary Payable</td>
+            </tr>
+            <tr>
+                <td class="net-pay-amount">Rs. {{ payslip.net_salary }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="clear:both;"></div>
+
+    <div class="footer">
+        <p>This is a computer generated document and does not require a physical signature.</p>
+        <p>Your Company Name | 123 Business Avenue, Tech District | info@yourcompany.com</p>
+    </div>
+</body>
+</html>

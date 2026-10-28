@@ -1,0 +1,312 @@
+/* ==========================================================================
+   DEPARTMENTS & SHARED LIST VIEW STYLING — DEEP TEAL NOIR
+   Used by: Departments, Employees, Expenses, Payslips, Attendance
+   ========================================================================== */
+
+.page-container {
+    animation: fadeIn 0.4s ease-out;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.35rem 0;
+    letter-spacing: -0.02em;
+}
+
+.page-header p {
+    color: #94a3b8;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.list-card {
+    background: #0a1c19;
+    border: 1px solid rgba(45, 212, 191, 0.15);
+    border-radius: 1rem;
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.list-toolbar {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(45, 212, 191, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0c201d;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-bar {
+    position: relative;
+    width: 300px;
+    max-width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ems-teal-accent);
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.65rem 1rem 0.65rem 2.5rem;
+    background: #081715;
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    border-radius: 0.65rem;
+    font-size: 0.9rem;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    border-color: var(--ems-teal-accent);
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+}
+
+.search-input::placeholder {
+    color: #64748b;
+}
+
+/* Tables */
+.standard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.standard-table th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ems-teal-accent);
+    letter-spacing: 0.08em;
+    background: #071513;
+    border-bottom: 1px solid rgba(45, 212, 191, 0.15);
+    font-family: var(--font-mono, monospace);
+}
+
+.standard-table td {
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid rgba(45, 212, 191, 0.08);
+    color: #e2e8f0;
+    font-size: 0.92rem;
+}
+
+.standard-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.standard-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.standard-table tbody tr:hover {
+    background-color: rgba(45, 212, 191, 0.05);
+}
+
+.text-right { text-align: right !important; }
+.text-center { text-align: center !important; }
+.font-medium { font-weight: 600; color: #ffffff; }
+.text-gray-500 { color: #94a3b8; }
+.py-4 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+
+.action-cells {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.icon-action-btn {
+    background: rgba(45, 212, 191, 0.08);
+    border: 1px solid rgba(45, 212, 191, 0.15);
+    cursor: pointer;
+    padding: 0.45rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #cbd5e1;
+}
+
+.icon-action-btn.edit:hover {
+    background: rgba(56, 189, 248, 0.18);
+    border-color: #38bdf8;
+    color: #38bdf8;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.icon-action-btn.delete:hover {
+    background: rgba(239, 68, 68, 0.18);
+    border-color: #ef4444;
+    color: #f87171;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+    background: #0a1c19;
+    border: 1px solid rgba(45, 212, 191, 0.3);
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(45, 212, 191, 0.15);
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #ffffff;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(45, 212, 191, 0.12);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s;
+}
+
+.close-btn:hover { color: #ffffff; }
+
+.standard-form {
+    padding: 1.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(45, 212, 191, 0.12);
+}
+
+/* Forms controls */
+.form-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #cbd5e1;
+    margin-bottom: 0.45rem;
+}
+
+.form-input, .form-control, select, textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #081715;
+    border: 1px solid rgba(45, 212, 191, 0.2);
+    border-radius: 0.6rem;
+    color: #ffffff;
+    font-size: 0.92rem;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.form-input:focus, .form-control:focus, select:focus, textarea:focus {
+    border-color: var(--ems-teal-accent);
+    box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+}
+
+select option {
+    background: #0a1c19;
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .list-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.85rem;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .standard-table {
+        min-width: 600px;
+    }
+
+    .modal-content {
+        max-width: 95vw;
+        margin: 1rem;
+    }
+}

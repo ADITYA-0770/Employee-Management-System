@@ -1,0 +1,129 @@
+/* ==========================================================================
+   GLOBAL DESIGN SYSTEM — EMPLOYEE MANAGEMENT SYSTEM (EMS)
+   Luxury Deep Teal Noir & Mint Glassmorphism Palette
+   ========================================================================== */
+
+:root {
+    /* Brand Teal & Mint Tokens */
+    --ems-teal-dark: #357f76;
+    --ems-teal-mid: #79bbae;
+    --ems-teal-light: #c8e6e0;
+    --ems-teal-accent: #2dd4bf;
+    --ems-teal-glow: rgba(45, 212, 191, 0.25);
+    --ems-teal-deep: #163632;
+
+    /* Dark Background Tokens */
+    --bg-dark: #06110f;
+    --bg-card-dark: #0c1f1c;
+    --bg-card-darker: #081715;
+    --border-teal: rgba(45, 212, 191, 0.15);
+    --border-teal-glow: rgba(45, 212, 191, 0.4);
+
+    /* Text Colors */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    /* Legacy compatibility variables mapped to dark luxury teal */
+    --brand-teal-light: #2dd4bf;
+    --brand-teal-mid: #357f76;
+    --brand-teal-dark: #235851;
+    --brand-teal: #357f76;
+    --bg-white: #0c1f1c;
+
+    /* Noise texture (SVG base64) */
+    --noise-texture: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+
+    /* Unified Deep Teal Noir Ambient Background */
+    --brand-gradient: 
+        var(--noise-texture),
+        radial-gradient(ellipse at 15% 15%, rgba(45, 212, 191, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 85% 85%, rgba(53, 127, 118, 0.18) 0%, transparent 55%),
+        linear-gradient(180deg, #06110f 0%, #091a18 50%, #06110f 100%);
+}
+
+body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-dark);
+    background-image: var(--brand-gradient);
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+.bg-brand-gradient {
+    background-image: var(--brand-gradient);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #06110f;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #163632;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ems-teal-accent);
+}
+
+/* Global Selection */
+::selection {
+    background: rgba(45, 212, 191, 0.25);
+    color: #ffffff;
+}
+
+/* Global Dark Theme Select & Option Styling */
+select {
+    color-scheme: dark;
+}
+
+select option {
+    background-color: #081715;
+    color: #f1f5f9;
+}
+
+select option:checked {
+    background-color: #123d36 !important;
+    color: #2dd4bf !important;
+}
+
+/* Global Disabled & Readonly Input Styling */
+input:disabled,
+input[disabled],
+input[readonly] {
+    color-scheme: dark;
+}
+
+/* Global Date Input Styling */
+input[type="date"] {
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.8) sepia(100%) saturate(300%) hue-rotate(120deg) brightness(1.2);
+    opacity: 0.85;
+    padding: 2px;
+    border-radius: 4px;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
