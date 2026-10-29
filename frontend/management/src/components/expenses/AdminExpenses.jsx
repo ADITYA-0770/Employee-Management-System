@@ -151,14 +151,7 @@ const AdminExpenses = () => {
                     <h1>Manage Expenses & Categories</h1>
                     <p>Oversee company reimbursements, claims approval, and expense categories</p>
                 </div>
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <button 
-                        className="btn btn-primary" 
-                        onClick={() => handleOpenCategoryModal()}
-                    >
-                        <Plus size={18} /> New Category
-                    </button>
-                </div>
+
             </div>
 
             {/* Quick Metrics */}
@@ -381,15 +374,7 @@ const AdminExpenses = () => {
                                             {categorySearch ? (
                                                 'No expense categories match your search.'
                                             ) : (
-                                                <div>
-                                                    <p style={{ margin: '0 0 1rem 0' }}>No expense categories have been created yet.</p>
-                                                    <button 
-                                                        className="btn btn-primary"
-                                                        onClick={() => handleOpenCategoryModal()}
-                                                    >
-                                                        <Plus size={16} /> Create Your First Category
-                                                    </button>
-                                                </div>
+                                                'No expense categories have been created yet.'
                                             )}
                                         </td>
                                     </tr>
