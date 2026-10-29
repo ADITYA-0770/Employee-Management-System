@@ -1,13 +1,17 @@
 import axios from "axios";
 
 const getBaseURL = () => {
-    if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+    // 1. If explicit environment variable is provided at build/runtime
+    if (import.meta.env.VITE_API_BASE_URL) {
+        let url = import.meta.env.VITE_API_BASE_URL;
+        return url.endsWith("/") ? url : `${url}/`;
+    }
+    // 2. If running locally on development machine
+    if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
         return "http://localhost:8000/";
     }
-    if (typeof window !== "undefined" && window.location.hostname) {
-        return `http://${window.location.hostname}:8000/`;
-    }
-    return "http://127.0.0.1:8000/";
+    // 3. Deployed production backend URL on Render
+    return "https://employee-management-system-fppi.onrender.com/";
 };
 
 const api = axios.create({

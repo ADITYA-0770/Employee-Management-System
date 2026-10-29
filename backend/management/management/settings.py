@@ -172,6 +172,16 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://employee-management-system.adityapradhan0770.workers.dev",
+]
+
+cors_env = os.environ.get("CORS_ALLOWED_ORIGINS")
+if cors_env:
+    CORS_ALLOWED_ORIGINS.extend([origin.strip() for origin in cors_env.split(",") if origin.strip()])
+
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.workers\.dev$",
+    r"^https://.*\.pages\.dev$",
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
