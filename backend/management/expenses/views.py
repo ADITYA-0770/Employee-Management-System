@@ -34,6 +34,9 @@ class UpdateCategoryView(APIView):
         serializer = CategorySerializer(category)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def put(self, request, id):
+        return self.patch(request, id)
+
     def patch(self, request, id):
         try:
             category = ExpenseCategory.objects.get(id=id)
@@ -44,6 +47,14 @@ class UpdateCategoryView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id):
+        try:
+            category = ExpenseCategory.objects.get(id=id)
+        except ExpenseCategory.DoesNotExist:
+            return Response({'detail': 'Category not found'}, status=status.HTTP_404_NOT_FOUND)
+        category.delete()
+        return Response({'detail': 'Category deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
 class ExpenseCreate(APIView):
     permission_classes = [IsAuthenticated]
