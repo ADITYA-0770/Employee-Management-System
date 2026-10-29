@@ -9,3 +9,4 @@ python-dotenv==1.2.2
 drf-yasg==1.21.15
 gunicorn
 whitenoise
+xhtml2pdf==0.2.17
