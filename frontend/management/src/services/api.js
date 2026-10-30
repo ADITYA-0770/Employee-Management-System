@@ -27,6 +27,11 @@ api.interceptors.request.use((config) => {
     if (token && !config.url.includes("login") && !config.url.includes("register")) {
         config.headers.Authorization = `Bearer ${token}`;
     }
+    // If sending FormData (file upload), delete Content-Type so Axios & browser
+    // automatically generate 'multipart/form-data; boundary=----...'
+    if (config.data instanceof FormData) {
+        delete config.headers["Content-Type"];
+    }
     return config;
 }, (error) => {
     return Promise.reject(error);

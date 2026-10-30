@@ -59,24 +59,28 @@ const MyExpenses = () => {
         setSubmitting(true);
 
         try {
-            let payload;
             if (formData.receipt) {
-                payload = new FormData();
+                const payload = new FormData();
                 payload.append('category', formData.category);
                 payload.append('amount', formData.amount);
                 payload.append('description', formData.description);
                 payload.append('expense_date', formData.expense_date);
                 payload.append('receipt', formData.receipt);
+                await api.post('expenses/create/', payload, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
             } else {
-                payload = {
+                const payload = {
                     category: formData.category,
                     amount: formData.amount,
                     description: formData.description,
                     expense_date: formData.expense_date
                 };
+                await api.post('expenses/create/', payload);
             }
 
-            await api.post('expenses/create/', payload);
             toast.success('Expense claim submitted successfully');
             setShowForm(false);
             setFormData({

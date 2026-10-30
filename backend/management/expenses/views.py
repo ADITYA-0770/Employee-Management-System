@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework import status
 from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
@@ -58,6 +59,7 @@ class UpdateCategoryView(APIView):
 
 class ExpenseCreate(APIView):
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     def post(self, request):
         try:
             employee = Employee.objects.get(user=request.user)
@@ -87,6 +89,7 @@ class ExpenseList(APIView):
 
 class ExpenseUpdate(APIView):
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     def get(self, request, id):
         try:
             expense = Expense.objects.get(id=id)
