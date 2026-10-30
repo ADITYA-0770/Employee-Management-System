@@ -63,7 +63,7 @@ class ExpenseCreate(APIView):
     def post(self, request):
         try:
             employee = Employee.objects.get(user=request.user)
-            serializer = ExpenseCreateSerializer(data=request.data)
+            serializer = ExpenseCreateSerializer(data=request.data, context={'request': request})
             if serializer.is_valid():
                 serializer.save(employee=employee)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -77,12 +77,12 @@ class ExpenseList(APIView):
         is_admin = request.user.is_superuser or request.user.is_staff or request.user.groups.filter(name__iexact="Admin").exists()
         if is_admin:
             expenses = Expense.objects.all()
-            serializer = ExpenseSerializer(expenses, many=True)
+            serializer = ExpenseSerializer(expenses, many=True, context={'request': request})
             return Response(serializer.data)
         try: 
             employee = Employee.objects.get(user=request.user)
             expenses = Expense.objects.filter(employee=employee)
-            serializer = ExpenseSerializer(expenses, many=True)
+            serializer = ExpenseSerializer(expenses, many=True, context={'request': request})
             return Response(serializer.data)
         except Employee.DoesNotExist:
             return Response({'detail': 'Employee not found'}, status=status.HTTP_404_NOT_FOUND)
@@ -95,7 +95,7 @@ class ExpenseUpdate(APIView):
             expense = Expense.objects.get(id=id)
         except Expense.DoesNotExist:
             return Response({'detail': 'Expense not found'}, status=status.HTTP_404_NOT_FOUND)
-        serializer = ExpenseSerializer(expense)
+        serializer = ExpenseSerializer(expense, context={'request': request})
         return Response(serializer.data)
 
     def put(self, request, id):
@@ -106,7 +106,7 @@ class ExpenseUpdate(APIView):
             expense = Expense.objects.get(id=id)
         except Expense.DoesNotExist:
             return Response({'detail': 'Expense not found'}, status=status.HTTP_404_NOT_FOUND)
-        serializer = ExpenseSerializer(expense, data=request.data, partial=True)
+        serializer = ExpenseSerializer(expense, data=request.data, partial=True, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -143,5 +143,5 @@ class ExpenseStatusUpdate(APIView):
         expense.status = new_status
         expense.save()
         
-        serializer = ExpenseSerializer(expense)
+        serializer = ExpenseSerializer(expense, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)

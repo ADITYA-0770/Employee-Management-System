@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getBaseURL = () => {
+export const getBaseURL = () => {
     // 1. If explicit environment variable is provided at build/runtime
     if (import.meta.env.VITE_API_BASE_URL) {
         let url = import.meta.env.VITE_API_BASE_URL;
@@ -12,6 +12,17 @@ const getBaseURL = () => {
     }
     // 3. Deployed production backend URL on Render
     return "https://employee-management-system-fppi.onrender.com/";
+};
+
+export const getMediaURL = (path) => {
+    if (!path) return "";
+    if (path.startsWith("http://") || path.startsWith("https://")) {
+        return path;
+    }
+    const base = getBaseURL();
+    const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
+    const cleanPath = path.startsWith("/") ? path : `/${path}`;
+    return `${cleanBase}${cleanPath}`;
 };
 
 const api = axios.create({

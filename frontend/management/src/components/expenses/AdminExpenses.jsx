@@ -13,7 +13,7 @@ import {
     ExternalLink
 } from 'lucide-react';
 import toast from 'react-hot-toast';
-import api from '../../services/api';
+import api, { getMediaURL } from '../../services/api';
 import { parseError } from '../../utils/errorHandler';
 import '../departments/Departments.css';
 import './Expenses.css';
@@ -279,7 +279,7 @@ const AdminExpenses = () => {
                                                 <td>
                                                     {exp.receipt ? (
                                                         <a 
-                                                            href={exp.receipt} 
+                                                            href={getMediaURL(exp.receipt)} 
                                                             target="_blank" 
                                                             rel="noreferrer" 
                                                             className="icon-action-btn edit" 
